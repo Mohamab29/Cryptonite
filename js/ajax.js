@@ -9,3 +9,12 @@ function getData(url) {
         });
     });
 }
+function getCurrentPrice(id){
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `https://api.coingecko.com/api/v3/coins/${id}`,
+            success: data => resolve(data),
+            error: err => reject(err)
+        });
+    });
+}

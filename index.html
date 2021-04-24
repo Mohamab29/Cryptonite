@@ -27,7 +27,7 @@
     <!-- Local scripts  -->
     <script src="js/ajax.js"></script>
     <script src="js/jquery-3.6.0.js"></script>
-    <script src="js/main.js"></script>
+    <script defer src="js/main.js"></script>
 
 
 </head>
@@ -62,30 +62,44 @@
             <div class="d-flex p-3 col-8 ">
                 <input class="form-control" id="search-input" type="search" placeholder="Search" aria-label="Search">
             </div>
+            <button type="button" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
         </div>
 
         <div class="row d-flex justify-content-center cards">
             <!-- dogma -->
             <!-- <div class="card" style="width: 16rem;">
                 <div class="card-body">
-                    <h5 class="card-title">BTC</h5>
+                    <div class ="c-header">
+                        <h5 class="card-title">BTC</h5>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1"></label>
+                        </div>
+                    </div>
                     <p class="card-text">Bitcoin</p>
                     <div class="collapse" id="more-info-collapse">
+
                         <p>
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                            squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                            ea proident.
                         </p>
                     </div>
-                    <a class="btn btn-info" data-toggle="collapse" href="#more-info-collapse" role="button">More info</a>
+                    <a class="btn btn-info" data-toggle="collapse" href="#more-info-collapse" role="button">More
+                        info</a>
                 </div>
             </div> -->
 
         </div>
 
     </div>
-    
-    <footer >
+
+    <footer>
         <hr>
-        &#169;2021 Cryptonite All rights reserved 
+        &#169;2021 Cryptonite All rights reserved
     </footer>
 </body>
+
 </html>

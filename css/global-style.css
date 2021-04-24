@@ -18,3 +18,21 @@ footer {
 .card {
     margin: 1rem;
 }
+.card-header {
+    /* justify-content:center;
+    margin-right: 0;
+    margin-left: 0; */
+}
+.card-title{
+    display:inline-block;
+    width:100px;
+    margin: 0;
+    margin-left:47px;
+}
+.custom-control{
+    display:inline-block;
+    width:20px;
+}
+.spinner-border{
+    margin:10px;
+}
