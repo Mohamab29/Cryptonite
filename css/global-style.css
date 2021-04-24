@@ -1,4 +1,5 @@
 /* General Styling: */
+
 html, body {
     margin: 0;
     padding: 0;
@@ -7,9 +8,13 @@ html, body {
     /* background: rgb(13,255,19);
     background: linear-gradient(0deg, rgba(13,255,19,1) 0%, rgba(255,255,255,1) 100%); */
 }
-.container{
-    git branch -M maingit push -u origin main
-
+footer {
+    position:  relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: auto;
 }
-.content{
+.card {
+    margin: 1rem;
 }
