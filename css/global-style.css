@@ -36,3 +36,17 @@ footer {
 .spinner-border{
     margin:10px;
 }
+#search-btn{
+    justify-content: center;
+    margin-top:14px;
+    width:2.5rem;
+    height:40px;
+    color: lightgreen;
+}
+#search-spinner{
+    margin:0;
+    width:16px;
+    height:16px;
+    color: lightgreen;
+    display: none;
+}

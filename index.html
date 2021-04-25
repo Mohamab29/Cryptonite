@@ -21,13 +21,13 @@
 
     <!-- font awesome -->
     <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- local links -->
     <link rel="stylesheet" href="css/global-style.css">
     <!-- Local scripts  -->
     <script src="js/ajax.js"></script>
     <script src="js/jquery-3.6.0.js"></script>
-    <script defer src="js/main.js"></script>
+    <script src="js/main.js"></script>
 
 
 </head>
@@ -62,7 +62,10 @@
             <div class="d-flex p-3 col-8 ">
                 <input class="form-control" id="search-input" type="search" placeholder="Search" aria-label="Search">
             </div>
-            <button type="button" class="btn btn-primary">
+            <button id="search-btn" type="button" class="btn btn-info">
+                <div class="spinner-border " id="search-spinner" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
                 <i class="fas fa-search"></i>
             </button>
         </div>
@@ -80,7 +83,6 @@
                     </div>
                     <p class="card-text">Bitcoin</p>
                     <div class="collapse" id="more-info-collapse">
-
                         <p>
                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
                             squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente

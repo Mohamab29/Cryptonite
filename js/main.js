@@ -1,4 +1,5 @@
 /// <reference path="jquery-3.6.0.js" />
+
 async function showCurrency(id) {
     // to check if we already loaded the current currency
     if ($(`#${id}-collapse`).children().length > 1) {
@@ -46,6 +47,36 @@ function createCard(crypto) {
     </div>`;
     return card;
 }
+function searchCards() {
+    //showing loading icon
+
+    const cardsTitles = $("h5.card-title");
+    const cardsTexts = $("p.card-text");
+    const filter = $('#search-input').val().toLowerCase();
+    // $($(cardsTexts[6]).parentsUntil("div.cards"));
+    const checkText = (text) => {
+        const txtValue = text.toLowerCase();
+        return txtValue.includes(filter);
+    };
+
+    let contain = false;
+    for (let i = 0; i < cardsTexts.length; i++) {
+        const card = $($(cardsTexts[i]).parentsUntil("div.cards")); // parent card
+        const title = $(cardsTitles[i]).text() // the innerHtml for title
+        const currencyName = $(cardsTexts[i]).text()
+
+        if (checkText(title) || checkText(currencyName)) {
+            card.show();
+            contain = true;
+        }
+        if (!contain) {
+            card.hide();
+        }
+        contain = false;
+    }
+    $(".fa-search").show();
+    $("#search-spinner").hide();
+}
 
 async function displayTop100() {
     try {
@@ -61,9 +92,23 @@ async function displayTop100() {
 // when document is finished loading we invoke this function 
 $(function () {
 
-
+    // first we display the top 100 relevant cryptocurrencies 
     displayTop100();
+
+    // when a click event happens on an info button we use the wrapper
+    //element in order to catch the event
     $("div.cards").on('click', 'a.btn-info', function () {
+        // the prev of the btn-info is the card the hidden collapsed div
         showCurrency($(this).prev().attr('id').replace("-collapse", ""))
     })
+
+    //for when a client clicks on the search button 
+    $('#search-btn').on('click', function () {
+        $(".fa-search").hide();
+        $("#search-spinner").show();
+        setTimeout(() => {
+            searchCards()
+        }, 600);
+    });
+
 });
