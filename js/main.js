@@ -1,23 +1,46 @@
 /// <reference path="jquery-3.6.0.js" />
-
-async function showCurrency(id) {
-    // to check if we already loaded the current currency
-    if ($(`#${id}-collapse`).children().length > 1) {
+function showMoreInfo(infoObject) {
+    //checking if we already created the div 
+    if ($(`#${infoObject.id}-collapse`).children().length > 1) {
         return;
     }
+    const paragraph = `
+        <img class="crypt-icon" src=${infoObject.image}>
+        <p>
+        Current prices:<br>
+        &#36;${infoObject.usd}<br>
+        &#8364;${infoObject.eur}<br>
+        &#8362;${infoObject.ils}
+        </p>`;
+    $(`#${infoObject.id}-collapse`).append(paragraph);
+    //hiding the spinner when we finish
+    $(`#${infoObject.id}-spinner`).hide();
+}
+async function showCurrency(id) {
+    // to check if we already loaded the current currency
+    if (inLocalStorage(id)) {
+        if (!checkTimeStamps(id)) {
+            const info = getObjectFromLocalStorage(id);
+            showMoreInfo(info);
+            return;
+        }
+        else {
+            deleteFromLocalStorage(id);
+        }
+    }
     try {
+        // first get the currency info by it's id then we build an html element to show it 
+        // after we finish we save it to local storage
         const data = await getCurrentPrice(id)
-        const paragraph = `
-            <img class="crypt-icon" src=${data.image.thumb}>
-            <p>
-            Current prices:<br>
-            &#36;${data.market_data.current_price.usd}<br>
-            &#8364;${data.market_data.current_price.eur}<br>
-            &#8362;${data.market_data.current_price.ils}
-            </p>`;
-        $(`#${id}-collapse`).append(paragraph);
-        //hiding the spinner when we finish
-        $(`#${id}-spinner`).hide();
+        const infoObject = {
+            id: id,
+            image: data.image.thumb,
+            usd: data.market_data.current_price.usd,
+            eur: data.market_data.current_price.eur,
+            ils: data.market_data.current_price.ils
+        }
+        showMoreInfo(infoObject);
+        saveToLocalStorage(infoObject);
     }
     catch (err) {
         console.log("An error has occurred:" + err);
@@ -81,6 +104,7 @@ function searchCards() {
 async function displayTop100() {
     try {
         const data = await getData("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc");
+        removeExpired(data);
         data.forEach(element => $(".cards").append(createCard(element)));
     }
     catch (err) {
