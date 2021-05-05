@@ -20,7 +20,7 @@ async function showCurrency(id) {
     // to check if we already loaded the current currency
     if (inLocalStorage(id)) {
         if (!checkTimeStamps(id)) {
-            const info = getObjectFromLocalStorage(id);
+            const info = getFromLocalStorage(id);
             showMoreInfo(info);
             return;
         }
@@ -54,13 +54,13 @@ function createCard(crypto) {
             <div class ="c-header">
                 <h5 class="card-title">${crypto.symbol.toUpperCase()}</h5>
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="${crypto.id}Switch">
+                    <input type="checkbox" class="custom-control-input card-checkbox" id="${crypto.id}Switch">
                     <label class="custom-control-label" for="${crypto.id}Switch"></label>
                 </div>
             </div>
             <p class="card-text">${crypto.name}</p>
             <div class="collapse" id="${crypto.id}-collapse">
-            <div class="spinner-border text-info" id="${crypto.id}-spinner" role="status">
+            <div class="spinner-border card-spinner text-info" id="${crypto.id}-spinner" role="status">
             <span class="sr-only">Loading...</span>
             </div>
             </div>
@@ -100,7 +100,46 @@ function searchCards() {
     $(".fa-search").show();
     $("#search-spinner").hide();
 }
-
+function showModal(reports, id) {
+    reports.forEach((currency) => {
+        $("#checked-currencies").append(`
+        <div class="row">
+        <input type="checkbox" name="textEditor" id="${currency.id}" checked>
+        <label for="${currency.id}">${currency.id.toUpperCase()}</label>
+        </div>
+        `)
+    });
+    $("#checkModal").modal("show");
+}
+function addCheckedCurrency(inputElement) {
+    // if the checked on the currency button is on or off then it's added to the reports file
+    const currencyID = $(inputElement).attr('id').replace('Switch', '');
+    const isChecked = $(inputElement).is(":checked");
+    if (!inLocalStorage("reports")) {
+        addForReports(currencyID, isChecked);
+        return;
+    }
+    else {
+        const reports = getFromLocalStorage("reports");
+        if (reports.length === 5) {
+            showModal(reports, currencyID);
+            return;
+        }
+        if (inReports(currencyID)) {
+            for (const currency of reports) {
+                if (currency.id === currencyID && !currency.isChecked) {
+                    currency.isChecked = isChecked;
+                    deleteFromReports(currency.id);
+                    addForReports(currency.id, currency.isChecked);
+                    break;
+                }
+            }
+        } else {
+            addForReports(currencyID, isChecked);
+            return;
+        }
+    }
+}
 async function displayTop100() {
     try {
         const data = await getData("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc");
@@ -134,5 +173,17 @@ $(function () {
             searchCards()
         }, 600);
     });
+    // setTimeout(() => { $("#myModal").modal("show"); }, 500);
+
+    $("div.cards").on('click', 'input.card-checkbox', function () {
+
+        addCheckedCurrency($(this));
+
+    });
+    $("#modalOk").on('click', function () {
+
+        // console.log($($(".customRadio").find(`input`)[0]).is(':checked'));
+    })
+
 
 });

@@ -11,17 +11,17 @@ function saveToLocalStorage(data) {
     }
     localStorage.setItem(data.id, JSON.stringify(info));
 }
-function deleteFromLocalStorage(id) {
-    const jsonObject = localStorage.getItem(id);
+function deleteFromLocalStorage(key) {
+    const jsonObject = localStorage.getItem(key);
     if (!jsonObject) return;
-    localStorage.removeItem(id);
+    localStorage.removeItem(key);
 }
-function inLocalStorage(id) {
-    const jsonObject = localStorage.getItem(id);
+function inLocalStorage(key) {
+    const jsonObject = localStorage.getItem(key);
     return jsonObject === null ? false : true;
 }
-function getObjectFromLocalStorage(id) {
-    const jsonObject = localStorage.getItem(id);
+function getFromLocalStorage(key) {
+    const jsonObject = localStorage.getItem(key);
     if (!jsonObject) throw new ("Json Object was not found");
     return JSON.parse(jsonObject);
 }
@@ -48,4 +48,48 @@ function removeExpired(data) {
             }
         }
     }
+}
+function addForReports(id, isChecked) {
+    // adding and array of objects in local storage the new currency or updating 
+    // a currency for the live reports
+    let updatedObject = [];
+    const jsonArray = localStorage.getItem("reports");
+    if (jsonArray) {
+        updatedObject = JSON.parse(jsonArray);
+    }
+
+    updatedObject.push({
+        id: id,
+        isChecked: isChecked
+    });
+    localStorage.setItem("reports", JSON.stringify(updatedObject));
+    return object;
+}
+function deleteFromReports(id) {
+    // deleting a currency from the reports array  
+    const jsonArray = localStorage.getItem("reports")
+    if (!jsonArray) throw new Error("The id wan not found.");
+
+    const reports = JSON.parse(jsonArray);
+
+    const currencyIndex = reports.forEach((currency, index) => {
+        if (currency.id === id) {
+            return index;
+        };
+    })
+    reports.splice(currencyIndex, 1);
+
+    localStorage.removeItem("reports");
+    localStorage.setItem("reports", reports);
+
+}
+function inReports(id) {
+    const reports = getFromLocalStorage("reports");
+    let isIn = false;
+    for (const currency of reports) {
+        if (currency.id === id) {
+            isIn = true;
+        };
+    }
+    return isIn;
 }

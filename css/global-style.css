@@ -15,14 +15,14 @@ footer {
     bottom: 0;
     z-index: auto;
 }
+.navbar {
+    background-color: #9186eb;
+}
+
 .card {
     margin: 1rem;
 }
-.card-header {
-    /* justify-content:center;
-    margin-right: 0;
-    margin-left: 0; */
-}
+
 .card-title{
     display:inline-block;
     width:100px;
@@ -33,20 +33,36 @@ footer {
     display:inline-block;
     width:20px;
 }
-.spinner-border{
+.card-spinner{
     margin:10px;
+    color: #6046cf !important;
+
 }
+.btn{
+    background-color: #6046cf !important;
+}
+.btn-outline-light{
+
+    color: #BDBDBD!important;
+    cursor: pointer;
+    background: #fff!important;
+}
+.btn-outline-light:hover {
+    border: 1px solid;
+}
+
+
 #search-btn{
     justify-content: center;
     margin-top:14px;
     width:2.5rem;
     height:40px;
-    color: lightgreen;
+    color: #fff;
 }
 #search-spinner{
     margin:0;
     width:16px;
     height:16px;
-    color: lightgreen;
+    color: #fff;
     display: none;
 }
