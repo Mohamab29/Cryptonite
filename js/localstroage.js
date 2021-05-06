@@ -63,7 +63,6 @@ function addForReports(id, isChecked) {
         isChecked: isChecked
     });
     localStorage.setItem("reports", JSON.stringify(updatedObject));
-    return object;
 }
 function deleteFromReports(id) {
     // deleting a currency from the reports array  
@@ -72,15 +71,13 @@ function deleteFromReports(id) {
 
     const reports = JSON.parse(jsonArray);
 
-    const currencyIndex = reports.forEach((currency, index) => {
+    reports.forEach((currency, index) => {
         if (currency.id === id) {
-            return index;
+            reports.splice(index, 1);
         };
     })
-    reports.splice(currencyIndex, 1);
-
     localStorage.removeItem("reports");
-    localStorage.setItem("reports", reports);
+    localStorage.setItem("reports", JSON.stringify(reports));
 
 }
 function inReports(id) {

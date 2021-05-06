@@ -100,54 +100,106 @@ function searchCards() {
     $(".fa-search").show();
     $("#search-spinner").hide();
 }
+function updateReports(reports, currencyID, isChecked) {
+    for (const currency of reports) {
+        if (currency.id === currencyID) {
+            currency.isChecked = isChecked;
+            deleteFromReports(currency.id);
+            addForReports(currency.id, currency.isChecked);
+            break;
+        }
+    }
+}
 function showModal(reports, id) {
+    $("#checked-currencies").html("");
     reports.forEach((currency) => {
-        $("#checked-currencies").append(`
+        if (currency.isChecked) {
+            $("#checked-currencies").append(`
         <div class="row">
-        <input type="checkbox" name="textEditor" id="${currency.id}" checked>
-        <label for="${currency.id}">${currency.id.toUpperCase()}</label>
+        <input type="checkbox" name="textEditor" id="${currency.id}-checkbox" checked>
+        <label for="${currency.id}-checkbox">${currency.id.toUpperCase()}</label>
         </div>
-        `)
+        `);
+        };
     });
     $("#checkModal").modal("show");
+    $("#modalOk").on('click', function () {
+        const inputs = $("#checked-currencies").find('input');
+        let countChecked = 1;
+        for (let i = 0; i < inputs.length; i++) {
+            const isChecked = $(inputs[i]).is(":checked");
+            const currencyID = $(inputs[i]).attr("id").replace("-checkbox", "");
+            if (!isChecked) {
+                // uncheck th elements in the HTML page
+                updateReports(reports, currencyID, isChecked);
+                $(`#${currencyID}Switch`).prop("checked", false);
+            } else {
+                countChecked++;
+            }
+        }
+        if (countChecked === 5) {
+            $(`#${id}Switch`).prop('checked', false);
+        }
+        else {
+            updateReports(reports, id, true);
+            $(`#${id}Switch`).prop('checked', true);
+        }
+        //removing the click events 
+        $("#modalOk").off('click');
+        $("#modalCancel").off('click');
+    });
+    $("#modalCancel").on('click', function () {
+        $("#checkModal").modal("hide");
+        $(`#${id}Switch`).prop('checked', false);
+
+        $("#modalOk").off('click');
+        $("#modalCancel").off('click');
+    });
+
 }
 function addCheckedCurrency(inputElement) {
-    // if the checked on the currency button is on or off then it's added to the reports file
-    const currencyID = $(inputElement).attr('id').replace('Switch', '');
+    // if the checked on the currency button is on or off then 
+    // it's added to the reports file
     const isChecked = $(inputElement).is(":checked");
-    if (!inLocalStorage("reports")) {
-        addForReports(currencyID, isChecked);
-        return;
-    }
-    else {
-        const reports = getFromLocalStorage("reports");
-        if (reports.length === 5) {
-            showModal(reports, currencyID);
-            return;
-        }
-        if (inReports(currencyID)) {
-            for (const currency of reports) {
-                if (currency.id === currencyID && !currency.isChecked) {
-                    currency.isChecked = isChecked;
-                    deleteFromReports(currency.id);
-                    addForReports(currency.id, currency.isChecked);
-                    break;
-                }
+    // if (!isChecked) return; // if the element is not checked uncheck
+
+    const currencyID = $(inputElement).attr('id').replace('Switch', '');
+    const reports = getFromLocalStorage("reports");
+
+    const checkFor5True = (r) => {
+        let counter = 0
+        for (const currency of r) {
+            if (currency.isChecked) {
+                counter++;
             }
-        } else {
-            addForReports(currencyID, isChecked);
-            return;
         }
+        return counter === 5;
     }
+    if (checkFor5True(reports) && isChecked) {
+        showModal(reports, currencyID)
+        return;
+    } else {
+        updateReports(reports, currencyID, isChecked);
+    }
+
 }
 async function displayTop100() {
     try {
         const data = await getData("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc");
         removeExpired(data);
-        data.forEach(element => $(".cards").append(createCard(element)));
+        if (getFromLocalStorage("reports")) {
+            localStorage.removeItem("reports");
+        }
+        data.forEach((element) => {
+            if (element) {
+                addForReports(element.id, false); // initializing the reports
+                $(".cards").append(createCard(element));
+            }
+        }
+        );
     }
     catch (err) {
-        console.log("An error has occurred:" + err);
+        console.log(err);
     }
 
 }
