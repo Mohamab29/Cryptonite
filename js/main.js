@@ -125,7 +125,7 @@ function showModal(reports, id) {
     $("#checkModal").modal("show");
     $("#modalOk").on('click', function () {
         const inputs = $("#checked-currencies").find('input');
-        let countChecked = 1;
+        let countChecked = 0;
         for (let i = 0; i < inputs.length; i++) {
             const isChecked = $(inputs[i]).is(":checked");
             const currencyID = $(inputs[i]).attr("id").replace("-checkbox", "");
