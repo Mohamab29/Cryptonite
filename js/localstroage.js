@@ -22,7 +22,7 @@ function inLocalStorage(key) {
 }
 function getFromLocalStorage(key) {
     const jsonObject = localStorage.getItem(key);
-    if (!jsonObject) throw new ("Json Object was not found");
+    if (!jsonObject) return;
     return JSON.parse(jsonObject);
 }
 function checkTimeStamps(id) {

@@ -190,6 +190,7 @@ async function displayTop100() {
         if (getFromLocalStorage("reports")) {
             localStorage.removeItem("reports");
         }
+
         data.forEach((element) => {
             if (element) {
                 addForReports(element.id, false); // initializing the reports
