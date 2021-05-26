@@ -18,6 +18,10 @@ body {
     color: #04003d;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 footer {
     position: relative;
     left: 0;
@@ -35,11 +39,11 @@ footer {
 }
 
 .navbar {
-    background-image: linear-gradient(0deg, rgb(5,22,57), rgba(18,68,127,255),rgb(55,140,180) );
-
+    background-image: linear-gradient(0deg, rgb(5, 22, 57), rgba(18, 68, 127, 255), rgb(55, 140, 180));
 }
-.navbar-brand,.nav-link{
-    color:#d1e8ff !important;
+
+.navbar-brand, .nav-link {
+    color: #d1e8ff !important;
 }
 
 .custom-control-input:checked~.custom-control-label::before {
@@ -49,8 +53,9 @@ footer {
 .card {
     margin: 1rem;
 }
-.card-body{
-    background-color:#d1e8ff;
+
+.card-body {
+    background-color: #d1e8ff;
 }
 
 .card-title {
@@ -98,4 +103,10 @@ footer {
     height: 16px;
     color: #fff;
     display: none;
+}
+#live-reports{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

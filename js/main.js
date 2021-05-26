@@ -52,7 +52,7 @@ function createCard(crypto) {
     <div class="card" style="width: 16rem;">
         <div class="card-body">
             <div class ="c-header">
-                <h5 class="card-title">${crypto.symbol.toUpperCase()}</h5>
+                <h5 class="card-title ${crypto.id.toLowerCase()}-title">${crypto.symbol.toUpperCase()}</h5>
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input card-checkbox" id="${crypto.id}Switch">
                     <label class="custom-control-label" for="${crypto.id}Switch"></label>
@@ -117,6 +117,149 @@ function updateReports(reports, currencyID, isChecked) {
         }
     }
 }
+
+function getCheckedCurrencies() {
+    const reports = getFromLocalStorage("reports");
+    const checkedCurrencies = [];
+    for (const report of reports) {
+        if (report.isChecked) {
+            checkedCurrencies.push(report.id);
+        }
+    }
+    return checkedCurrencies;
+}
+function updateChartData(chartData, checkedCurrenciesNames) {
+    //removing from chart if not checked at the time of updating
+    //first we take what is inside the charts
+    const currenciesInData = []
+    for (const dataObj of chartData) {
+        currenciesInData.push(dataObj.name)
+    }
+    const uncheckedNames = currenciesInData.filter(val => !checkedCurrenciesNames.includes(val));
+    for (const name of uncheckedNames) {
+        chartData = $.grep(chartData, (obj) => {
+            return obj.name !== name;
+        });
+    }
+    return chartData;
+}
+async function updateCanvas(startTime) {
+    const chart = $("#chartContainer").CanvasJSChart(); // canvas object
+    let chartData = chart.options.data;
+    const checkedCurrencies = getCheckedCurrencies();
+    const checkedCurrenciesNames = [];
+    if (checkedCurrencies.length === 0) {
+        chart.options.title.text =`Please choose up to 5 crypto currencies`;
+        chart.options.data = [];
+        chart.render();
+        return;
+    }
+    // creating the title and taking the symbols of each currency
+    let canvasTitle = "";
+    const arrLength = checkedCurrencies.length;
+
+    if (arrLength === 1) {
+        let currencySymbol = $(`h5.${checkedCurrencies[0]}-title`).text();
+        canvasTitle = currencySymbol;
+        checkedCurrenciesNames.push(currencySymbol);
+    } else {
+
+        let currencySymbol = "";
+        for (let i = 0; i < arrLength - 1; i++) {
+            currencySymbol = $(`h5.${checkedCurrencies[i]}-title`).text()
+            canvasTitle += currencySymbol + ",";
+            checkedCurrenciesNames.push(currencySymbol);
+        }
+        currencySymbol = $(`h5.${checkedCurrencies[arrLength - 1]}-title`).text();
+        canvasTitle += currencySymbol;
+        checkedCurrenciesNames.push(currencySymbol);
+
+    }
+    chart.options.title.text = canvasTitle + " to USD\\$";
+    try {
+        const currenciesInUSD = await getCurrencies(canvasTitle);
+        if (chartData.length) {
+            chartData = updateChartData(chartData, checkedCurrenciesNames);
+        }
+        const currentTime = new Date().getTime();
+        for (const currency in currenciesInUSD) {
+
+            let currencyInData = chartData.find((obj) => {
+                return obj.name === currency;
+            });
+            if (!currencyInData || currencyInData.length === 0) {
+                const newCurrencyData = {
+                    type: "spline",
+                    name: currency,
+                    showInLegend: true,
+                    dataPoints: [
+                        { x: (currentTime - startTime) / 1000, y: currenciesInUSD[currency].USD }
+                    ]
+                }
+                chartData.push(newCurrencyData);
+            } else {
+                currencyInData.dataPoints.push(
+                    { x: (currentTime - startTime) / 1000, y: currenciesInUSD[currency].USD }
+                );
+                chartData = $.grep(chartData, (data) => {
+                    return data.name !== currencyInData.name;
+                });
+                chartData.push(currencyInData);
+            }
+        }
+        chart.options.data = chartData;
+        chart.render();
+    }
+    catch (err) {
+        console.log(err);
+    }
+
+}
+function showCanvas() {
+    const options = {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: `Please choose up to 5 crypto currencies`
+        },
+
+        axisX: {
+            title: "Seconds (updated every 2 secs)",
+            titleFontColor: "#4F81BC",
+            lineColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            tickColor: "#4F81BC"
+        },
+        axisY: {
+            title: "Price in US dollars",
+            titleFontColor: "#4F81BC",
+            lineColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            tickColor: "#4F81BC"
+        },
+
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor: "pointer",
+            itemclick: toggleDataSeries
+        },
+        data: [
+        ]
+    };
+    $("#chartContainer").CanvasJSChart(options);
+}
+function toggleDataSeries(e) {
+    // when a legend is clicked then this shows his chart
+    if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        e.dataSeries.visible = false;
+    } else {
+        e.dataSeries.visible = true;
+    }
+    e.chart.render();
+}
+
 function showModal(reports, id) {
     $("#checked-currencies").html("");
     reports.forEach((currency) => {
@@ -192,7 +335,7 @@ function addCheckedCurrency(inputElement) {
 }
 async function displayTop100() {
     try {
-        const data = await getData("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc");
+        const data = await getTop100Data();
         removeExpired(data);
         if (getFromLocalStorage("reports")) {
             localStorage.removeItem("reports");
@@ -244,21 +387,27 @@ $(function () {
             }
         })();
     });
-    // setTimeout(() => { $("#myModal").modal("show"); }, 500);
+
 
     $("div.cards").on('click', 'input.card-checkbox', function () {
 
         addCheckedCurrency($(this));
 
     });
-    $("#modalOk").on('click', function () {
 
-        // console.log($($(".customRadio").find(`input`)[0]).is(':checked'));
-    })
 
     //when scrolling we wan to change the offset of the navbar
     $(window).on('scroll', () => {
         let offset = window.pageYOffset;
-        $(".nav-area").css("background-position-y", offset * 0.7 + "px");
+        $(".nav-area").css("background-position-y", offset * 0.6 + "px");
     });
+
+
+    showCanvas();
+    const startTime = new Date().getTime();
+    setInterval(() => {
+
+        updateCanvas(startTime);
+    }, 2000);
+
 });
