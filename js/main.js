@@ -76,10 +76,18 @@ function searchCards() {
     const cardsTitles = $("h5.card-title");
     const cardsTexts = $("p.card-text");
     const filter = $('#search-input').val().toLowerCase();
-    // $($(cardsTexts[6]).parentsUntil("div.cards"));
+    const showSpinner = () => {
+        $(".fa-search").show();
+        $("#search-spinner").hide();
+    };
+    if (!filter) {
+        showSpinner();
+        return;
+    }
+
     const checkText = (text) => {
         const txtValue = text.toLowerCase();
-        return txtValue.includes(filter);
+        return txtValue === filter;
     };
 
     let contain = false;
@@ -89,16 +97,15 @@ function searchCards() {
         const currencyName = $(cardsTexts[i]).text()
 
         if (checkText(title) || checkText(currencyName)) {
-            card.show();
+            $(card[1]).show();//getting the whole card
             contain = true;
         }
         if (!contain) {
-            card.hide();
+            $(card[1]).hide();
         }
         contain = false;
     }
-    $(".fa-search").show();
-    $("#search-spinner").hide();
+    showSpinner();
 }
 function updateReports(reports, currencyID, isChecked) {
     for (const currency of reports) {
@@ -226,6 +233,17 @@ $(function () {
             searchCards()
         }, 600);
     });
+    //when the little x button is clicked in the search bar in cards container 
+    $('#search-input').on('search', function () {
+        (() => {
+            const cards = $("div.cards").children();
+            for (const card of cards) {
+                if (!($(card).is(":visible"))) {
+                    $(card).show()
+                }
+            }
+        })();
+    });
     // setTimeout(() => { $("#myModal").modal("show"); }, 500);
 
     $("div.cards").on('click', 'input.card-checkbox', function () {
@@ -238,5 +256,9 @@ $(function () {
         // console.log($($(".customRadio").find(`input`)[0]).is(':checked'));
     })
 
-
+    //when scrolling we wan to change the offset of the navbar
+    $(window).on('scroll', () => {
+        let offset = window.pageYOffset;
+        $(".nav-area").css("background-position-y", offset * 0.7 + "px");
+    });
 });

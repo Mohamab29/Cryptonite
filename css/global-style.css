@@ -7,62 +7,95 @@ html, body {
     text-align: center;
     /* background: rgb(13,255,19);
     background: linear-gradient(0deg, rgba(13,255,19,1) 0%, rgba(255,255,255,1) 100%); */
+    background-image: url("../assets/images/bg1.jpg");
+    background-attachment: fixed;
+    background-size: cover;
 }
+
+body {
+    line-height: 1;
+    font: 300 18px/1.5 'Roboto', sans-serif;
+    color: #04003d;
+}
+
 footer {
-    position:  relative;
+    position: relative;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: auto;
 }
+
+.nav-area {
+    width: 100%;
+    height: 100vh;
+    /* background-color: #9186eb; */
+    background-image: url("../assets/images/blockchain-bg2.jpg");
+    background-size: cover;
+}
+
 .navbar {
-    background-color: #9186eb;
+    background-image: linear-gradient(0deg, rgb(5,22,57), rgba(18,68,127,255),rgb(55,140,180) );
+
+}
+.navbar-brand,.nav-link{
+    color:#d1e8ff !important;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    background-color: #04003d;
 }
 
 .card {
     margin: 1rem;
 }
+.card-body{
+    background-color:#d1e8ff;
+}
 
-.card-title{
-    display:inline-block;
-    width:100px;
+.card-title {
+    display: inline-block;
+    width: 100px;
     margin: 0;
-    margin-left:47px;
+    margin-left: 47px;
 }
-.custom-control{
-    display:inline-block;
-    width:20px;
-}
-.card-spinner{
-    margin:10px;
-    color: #6046cf !important;
 
+.custom-control {
+    display: inline-block;
+    width: 20px;
 }
-.btn{
-    background-color: #6046cf !important;
-}
-.btn-outline-light{
 
+.card-spinner {
+    margin: 10px;
+    color: #04003d !important;
+}
+
+.btn {
+    background-color: #04003d !important;
+}
+
+.btn-outline-light {
     color: #BDBDBD!important;
     cursor: pointer;
     background: #fff!important;
 }
+
 .btn-outline-light:hover {
     border: 1px solid;
 }
 
-
-#search-btn{
+#search-btn {
     justify-content: center;
-    margin-top:14px;
-    width:2.5rem;
-    height:40px;
+    margin-top: 14px;
+    width: 2.5rem;
+    height: 40px;
     color: #fff;
 }
-#search-spinner{
-    margin:0;
-    width:16px;
-    height:16px;
+
+#search-spinner {
+    margin: 0;
+    width: 16px;
+    height: 16px;
     color: #fff;
     display: none;
 }
