@@ -50,19 +50,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#currencies">Currencies</a>
+                        <a class="nav-link nav-link-active" id="currenciesLink" href="#">Currencies</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#live-reports">Live reports</a>
+                        <a class="nav-link" id="liveReportsLink" href="#">Live reports</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" id="aboutLink" href="#">About</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </div>
-    <section id="currencies">
+    <div id="currenciesComponent">
         <div class="container card-container">
 
             <div class="row d-flex justify-content-center">
@@ -102,12 +102,15 @@
                         info</a>
                 </div>
             </div> -->
-
             </div>
-    </section>
-    <section id="live-reports">
-        <div id="chartContainer" style="height: 500px; width: 80%;"></div>
-    </section>
+        </div>
+    </div>
+    <div id="liveReportsComponent" >
+        <div id="chartContainer" style="height: 500px; width: 1125px;"></div>
+    </div>
+    <div id="aboutComponent">
+        <h1>About lol ...</h1>
+    </div>
     <div class="modal fade " id="checkModal" data-backdrop="static">
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content">
@@ -157,7 +160,7 @@
     </div>
 
     </div>
-
+    <a href="#" class="scrollToTop"><i class="fas fa-arrow-up"></i></a>
     <footer>
         <hr>
         &#169;2021 Cryptonite All rights reserved

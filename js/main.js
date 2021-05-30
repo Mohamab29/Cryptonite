@@ -97,7 +97,7 @@ function searchCards() {
         const currencyName = $(cardsTexts[i]).text()
 
         if (checkText(title) || checkText(currencyName)) {
-            $(card[1]).show();//getting the whole card
+            // $(card[1]).show();//getting the whole card
             contain = true;
         }
         if (!contain) {
@@ -149,9 +149,11 @@ async function updateCanvas(startTime) {
     const checkedCurrencies = getCheckedCurrencies();
     const checkedCurrenciesNames = [];
     if (checkedCurrencies.length === 0) {
-        chart.options.title.text =`Please choose up to 5 crypto currencies`;
-        chart.options.data = [];
-        chart.render();
+        if (chartData.length) {
+            chart.options.title.text = `Please choose up to 5 crypto currencies`;
+            chart.options.data = [];
+            chart.render();
+        }
         return;
     }
     // creating the title and taking the symbols of each currency
@@ -193,7 +195,7 @@ async function updateCanvas(startTime) {
                     name: currency,
                     showInLegend: true,
                     dataPoints: [
-                        { x: (currentTime - startTime) / 1000, y: currenciesInUSD[currency].USD }
+                        { x: 0, y: currenciesInUSD[currency].USD }
                     ]
                 }
                 chartData.push(newCurrencyData);
@@ -212,6 +214,15 @@ async function updateCanvas(startTime) {
     }
     catch (err) {
         console.log(err);
+    }
+
+}
+function clearCanvas() {
+    const chart = $("#chartContainer").CanvasJSChart(); // canvas object
+    let chartData = chart.options.data;
+    chart.render();
+    for (const data of chartData) {
+        data.remove();
     }
 
 }
@@ -354,10 +365,64 @@ async function displayTop100() {
     }
 
 }
+function showComponent(comID1) {
+    console.log("here")
+    let componentsIDS = ["#currenciesComponent", "#liveReportsComponent", "#aboutComponent"];
+    const componentIndex = componentsIDS.indexOf(comID1);
+    componentsIDS.splice(componentIndex, 1)
+    // comID# - stands for component id , each number is for the three ones we have. 
+    const [comID2, comID3] = componentsIDS;
+    // checking the visibility of each component - VH stands for visible/hidden, 
+    const [comID1VH, comID2VH, comID3VH] = [$(comID1).is(":visible"), $(comID2).is(":visible"), $(comID3).is(":visible")]
+
+    if (comID1VH) {
+        return;
+    } else if (comID2VH) {
+        $(comID2).hide();
+        $(comID1).show();
+    } else if (comID3VH) {
+        $(comID3).hide();
+        $(comID1).show();
+    }
+};
 
 // when document is finished loading we invoke this function 
 $(function () {
+    // hiding the reports and about pages
+    $("#liveReportsComponent").hide()
+    $("#aboutComponent").hide()
+    const scrollDown = (componentID) => {
+        $('html, body').animate({
+            scrollTop: $(componentID).offset().top
+        }, 'slow');
+    };
+    // binding the links with on click event
+    $("#currenciesLink").on('click', function () {
+        showComponent("#currenciesComponent");
+        scrollDown("#currenciesComponent");
+    });
 
+    $("#liveReportsLink").on('click', function () {
+        showComponent("#liveReportsComponent");
+        showCanvas();
+        let startTime = new Date().getTime();
+        clearCanvas();
+        updateCanvas(startTime);
+        //////
+        // needs fixing , create and delete the div is the best option...
+        let IntervalId = setInterval(() => {
+            if(!$("#liveReportsComponent").is(":visible")){
+                clearInterval(IntervalId);
+                return;
+            }
+            updateCanvas(startTime);
+        }, 2000);
+        scrollDown("#liveReportsComponent");
+    });
+    $("#aboutLink").on('click', function () {
+        showComponent("#aboutComponent");
+        scrollDown("#aboutComponent");
+    });
     // first we display the top 100 relevant cryptocurrencies 
     displayTop100();
 
@@ -399,15 +464,17 @@ $(function () {
     //when scrolling we wan to change the offset of the navbar
     $(window).on('scroll', () => {
         let offset = window.pageYOffset;
-        $(".nav-area").css("background-position-y", offset * 0.6 + "px");
+        $(".nav-area").css("background-position-y", offset * 0.7 + "px");
+        if ($(this).scrollTop() > 100) {
+            $('.scrollToTop').fadeIn();
+        } else {
+            $('.scrollToTop').fadeOut();
+        }
     });
 
-
-    showCanvas();
-    const startTime = new Date().getTime();
-    setInterval(() => {
-
-        updateCanvas(startTime);
-    }, 2000);
+    $('.scrollToTop').click(function(){
+        $('html, body').animate({scrollTop : 0},800);
+        return false;
+    });
 
 });
