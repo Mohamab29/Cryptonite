@@ -8,7 +8,7 @@ function buildAboutSection() {
     const liveReportsComponent = `
         <div id="aboutComponent">
             <div class="profile-img">
-                <img src="../../assets/images/myprofile.jpg">
+                <img src="https://github.com/Mohamab29/Cryptonite/blob/main/assets/images/myprofile.jpg">
             </div>
             <div class="about-card">
                 <div class="about-me">
