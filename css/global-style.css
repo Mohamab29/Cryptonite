@@ -77,7 +77,7 @@ footer>hr {
  * ----------------------------------------
  * animation text-pop-up-top
  * ----------------------------------------
- */
+*/
 
 @keyframes text-pop-up-top {
     0% {
@@ -184,6 +184,66 @@ footer>hr {
     font-size: 45px;
 }
 
-.scrollToTop:hover {
-    color: #9d392a;
+.fa-arrow-up:hover {
+    color: #9d392a !important;
+}
+
+#aboutComponent {
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(15deg, #2d6fa5 7%, #d1e8ff 83%);
+    border-radius: 56px 56px 56px 56px;
+    box-shadow: 0px 0px 23px #bd75b7;
+    animation: glow 1s infinite alternate;
+}
+
+.profile-img>img {
+    border: 2px solid #2d6fa5;
+    height: 350px;
+    width: 350px;
+    max-width: 80%;
+    margin: 40px;
+    padding: 10px;
+    border-radius: 350px;
+    box-shadow: 0px 0px 20px 0px #363f5d;
+    animation: appear 2s ease 0s 1 normal;
+}
+
+.about-card>* {
+    font-size: 18px;
+    color: #0C1C28;
+    padding: 10px;
+    font-weight: bold;
+    text-align: justify;
+}
+
+.about-card>ul {
+    margin-left: 35px;
+}
+
+.contact-buttons>a {
+    margin-left: 20px;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px -10px #bd75b7;
+    }
+    to {
+        box-shadow: 0px 0px 30px 0px #bd75b7;
+    }
 }

@@ -185,9 +185,6 @@ function buildCurrencySection() {
     // and also the div that contains the cards
     
     $(".sections").empty();
-    //changing the links color in nav area
-    $("#currenciesLink").addClass("nav-link-active");
-    $("#liveReportsLink").removeClass("nav-link-active");
 
     const currencyComponent = `
     <div class="card-container" id="currenciesComponent">

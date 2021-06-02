@@ -44,13 +44,26 @@ $(function () {
         showSpinner();
     }
 
+    function changeLinksColor(comLink) {
+        //changing the links color in nav area
+        const linksIDs = ["#currenciesLink", "#liveReportsLink", "#aboutLink"];
+        const componentIndex = linksIDs.indexOf(comLink);
+        linksIDs.splice(componentIndex, 1)
+         // taking each link and checking if contains the active class if yes then remove it
+        linksIDs.map((element) => {
+            if($(element).hasClass('nav-link-active')){
+                $(element).removeClass('nav-link-active');
+            }
+        });
+        $(comLink).addClass('nav-link-active');
+    }
 
     const scrollDown = (componentID) => {
         setTimeout(() => {
             $('html, body').animate({
                 scrollTop: $(componentID).offset().top
             }, 'slow');
-        }, 500);
+        }, 700);
 
     };
 
@@ -67,7 +80,8 @@ $(function () {
         changeBgHeight(95);
         // the whole section is built
         buildCurrencySection();
-
+        // change links color
+        changeLinksColor("#currenciesLink");
         // displaying the currency cards
         displayTop100();
         //scroll down after all is finished
@@ -120,8 +134,8 @@ $(function () {
         buildLiveReportsSection();
         //creating the canvas
         createCanvas();
-        // clearing the data
-        // clearCanvasData();
+        // change links color
+        changeLinksColor("#liveReportsLink");
 
         //updating the canvas
         let startTime = new Date().getTime();
@@ -138,6 +152,18 @@ $(function () {
         scrollDown("#liveReportsComponent");
     });
 
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // when the about link is clicked 
+    $("#aboutLink").on('click',function(){
+        // building the about section 
+        buildAboutSection();
+        // changing color of the links
+        changeLinksColor("#aboutLink");
+        // changing the bg height
+        changeBgHeight(95);
+        
+        scrollDown("#aboutComponent");
+    });
     //when scrolling we wan to change the offset of the navbar
     $(window).on('scroll', () => {
         let offset = window.pageYOffset;

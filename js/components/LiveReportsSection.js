@@ -1,6 +1,6 @@
 "use strict";
 // The script includes functions for building the live reports section, 
-// functions for handling and managing the data and divs.
+// functions for handling and managing the data and div-s.
 
 function getCheckedCurrencies() {
     const reports = getFromLocalStorage("reports");
@@ -111,6 +111,7 @@ function createCanvas() {
     const options = {
         exportEnabled: true,
         animationEnabled: true,
+        backgroundColor: "#d1e8ff",
         title: {
             text: `Please choose up to 5 crypto currencies`
         },
@@ -155,9 +156,7 @@ function toggleDataSeries(e) {
 function buildLiveReportsSection() {
     // first we clear the sections div
     $(".sections").empty();
-    //changing the links color in nav area
-    $("#liveReportsLink").addClass("nav-link-active");
-    $("#currenciesLink").removeClass("nav-link-active");
+
     // we create the div that contains the canvas and then the canvas div
     const liveReportsComponent = `
         <div id="liveReportsComponent">
