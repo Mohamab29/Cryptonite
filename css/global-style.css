@@ -37,8 +37,6 @@ html {
 /* Footer design */
 
 footer {
-    
-
     left: 0;
     right: 0;
     bottom: 0;
@@ -49,10 +47,6 @@ footer {
 footer>hr {
     margin: 0;
     border: 2px solid #0C1C28;
-}
-
-footer>span {
-
 }
 
 .bg-area {
@@ -75,7 +69,29 @@ footer>span {
 }
 
 .nav-link-active {
-    color: #18476d !important;
+    color: #213e55 !important;
+    animation: text-pop-up-top 0.4s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;
+}
+
+/**
+ * ----------------------------------------
+ * animation text-pop-up-top
+ * ----------------------------------------
+ */
+
+@keyframes text-pop-up-top {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+    100% {
+        -webkit-transform: translateY(-50px);
+        transform: translateY(-5px);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
 }
 
 .navbar-brand:hover, .nav-link:hover {

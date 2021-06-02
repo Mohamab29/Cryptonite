@@ -62,8 +62,7 @@ $(function () {
     // if the currencies link is clicked when we show all the relevant components
     // then we show create event listeners
     $("#currenciesLink").on('click', function () {
-        //changing the links color in nav area
-        $("#currenciesLink").addClass("nav-link-active");
+
         // changing the bg height
         changeBgHeight(95);
         // the whole section is built
@@ -109,9 +108,7 @@ $(function () {
     // #################################
     // when the live reports link is clicked 
     $("#liveReportsLink").on('click', function () {
-        $("#liveReportsLink").addClass("nav-link-active");
-        $("#currenciesLink").removeClass("nav-link-active");
-        
+
         if ($("#liveReportsComponent").length) {
             // if already in page
             scrollDown("#liveReportsComponent");
