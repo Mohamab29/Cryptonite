@@ -2,11 +2,8 @@
 <h1 align="center" id="top">Cryptonite</h1>
 
 <div align="center" > 
-  <img src="assets/images/mockup.jpg" alt="Task Board" 
-  />
-
+  <img src="./assets/images/home-page.png" alt="Task Board" />
   &#xa0;
-
 </div>
 
 <hr>
@@ -16,13 +13,13 @@
     <img alt="CSS3" src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/>
     <img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
     <br>
-    <img alt="Github top language" src="https://img.shields.io/github/languages/top/Mohamab29/task-board?style=flat-square&color=blueviolet">
+    <img alt="Github top language" src="https://img.shields.io/github/languages/top/Mohamab29/Cryptonite?style=flat-square&color=blueviolet">
     &#xa0;
-    <img alt="Github language count" src="https://img.shields.io/github/languages/count/Mohamab29/task-board?style=flat-square&color=blueviolet">
+    <img alt="Github language count" src="https://img.shields.io/github/languages/count/Mohamab29/Cryptonite?style=flat-square&color=blueviolet">
      &#xa0;
-    <img alt="Repository size" src="https://img.shields.io/github/repo-size/Mohamab29/task-board?style=flat-square&color=blueviolet">
+    <img alt="Repository size" src="https://img.shields.io/github/repo-size/Mohamab29/Cryptonite?style=flat-square&color=blueviolet">
     &#xa0;
-    <img alt="License" src="https://img.shields.io/github/license/Mohamab29/task-board?style=flat-square&logo=appveyor&color=blueviolet">
+    <img alt="License" src="https://img.shields.io/github/license/Mohamab29/Cryptonite?style=flat-square&logo=appveyor&color=blueviolet">
 
 </p>
 
@@ -42,22 +39,42 @@
 
 ## :dart: About ##
 
-Task Board website is the first project in my full-stack course and the purpose of it is to use all the things we learned about front-end design in a web page using HTML,CSS3 and JavaScript.
+The website shows the top 100 cryptocurrencies , price information about each currency and a live report of price changes of up to five chosen currencies.<br><br>
+⁕ <b>The first page</b> displays cards of the top 100 cryptocurrencies sorted by market cap,<br>
+and each card contains a switch button (If checked then it will be shown in live reports page),<br>
+and more info button which when clicked shows the logo and the price of a currency in USD,EUR,ILS,<br>
+also the page has a search bar that you can use to search for a currency by typing the symbol, e.g.: ETH, BTC ... <br><br>
+⁕ <b>The second page</b> will display the price of checked currencies from the first page every two seconds,<br>
+and displays them in a linear graph where the y-axis is the price and the x-axis is the seconds that have passed since you entered the page,<br>
+additionally you can export the graph and if you click on the legends then you can see each currency’s graph separately.<br><br>
+⁕ <b>The about page</b> is self-explanatory 🙄.
 
-In the website a user can enter to do tasks in the task board and the time for the task to be completed , after that a yellow card will be automatically shown with all the task text in it with the target date and time , and if a user is done with a task he can simply delete it,and of course he can add as many tasks as he wants.
-
-Since this is just a front-end design the website will not have any back-end development in it
-, instead the tasks will be saved locally on the user's local machine using Local Storage. 
-
-## :sparkles: Features ##
-
-:heavy_check_mark: being able to see the task notes on th task board; \
-:heavy_check_mark: entering a new task note; \
-:heavy_check_mark: deleting the task/s;
 
 ## :rocket: Technologies ##
 
-The following tools were used in this project:
+In this project we are exercised:
+
+🔹 HTML + CSS:
+<ul>
+    <li> New HTML5 tags</li>
+    <li>CSS3 media queries and advanced selectors</li>
+    <li>Dynamic page layouts</li>
+    <li>Bootstrap & flex</li>
+</ul>
+
+🔹 JavaScript:
+<ul>
+    <li> Objects</li>
+    <li>Callbacks, Promises, Async Await</li>
+    <li>jQuery</li>
+    <li> Single Page Application foundations</li>
+    <li>Events</li>
+    <li>Ajax (RESTful API) </li>
+    <li>Documentation</li>
+</ul>
+
+🔹 External API’s.
+
 
 - [HTML](https://html.com/)
 - [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/)
@@ -71,7 +88,7 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) , 
 
 ```bash
 # Clone this project
-$ git clone https://github.com/Mohamab29/task-board
+$ git clone https://github.com/Mohamab29/Cryptonite
 
 # Access
 $ cd task-board
