@@ -36,10 +36,9 @@ html {
 /* Footer design */
 
 footer {
-    display:flex;
+    display: flex;
     justify-content: center;
-    align-items:center;
-
+    align-items: center;
     left: 0;
     right: 0;
     bottom: 0;
@@ -51,9 +50,7 @@ hr {
     margin: 0;
     border: 4px solid #0C1C28;
 }
-footer>span{
-    
-}
+
 .bg-area {
     width: auto;
     height: 89vh;
