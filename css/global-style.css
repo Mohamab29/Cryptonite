@@ -3,15 +3,15 @@
 html, body {
     margin: 0;
     padding: 0;
-
     height: 100%;
     text-align: center;
     /* background: rgb(13,255,19);
     background: linear-gradient(0deg, rgba(13,255,19,1) 0%, rgba(255,255,255,1) 100%); */
-    background: radial-gradient(circle, rgba(234,162,17,1) 0%, rgba(12,28,40,1) 44%);
+    background: radial-gradient(circle, rgba(234, 162, 17, 1) 0%, rgba(12, 28, 40, 1) 44%);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
+
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -23,6 +23,7 @@ html, body {
         background-position: 0% 50%;
     }
 }
+
 body {
     line-height: 1;
     font: 300 18px/1.5 'Roboto', sans-serif;
@@ -33,18 +34,30 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Footer design */
+
 footer {
-    position: relative;
+    
+
     left: 0;
     right: 0;
     bottom: 0;
     z-index: auto;
+    color: cornsilk;
 }
 
-.nav-area {
-    width: auto;
-    height: 100vh;
+footer>hr {
+    margin: 0;
+    border: 2px solid #0C1C28;
+}
 
+footer>span {
+
+}
+
+.bg-area {
+    width: auto;
+    height: 90vh;
     background-image: url("../assets/images/blockchain-bg2.jpg");
     background-position: center center;
     background-repeat: no-repeat;
@@ -52,7 +65,7 @@ footer {
 }
 
 .navbar {
-    background: radial-gradient(circle, rgba(234,162,17,1) 0%, rgba(12,28,40,1) 16%);
+    background: radial-gradient(circle, rgba(234, 162, 17, 1) 0%, rgba(12, 28, 40, 1) 16%);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
@@ -60,11 +73,12 @@ footer {
 .navbar-brand, .nav-link {
     color: #2d6fa5 !important;
 }
-.nav-link-active{
+
+.nav-link-active {
     color: #18476d !important;
 }
 
-.navbar-brand:hover,.nav-link:hover {
+.navbar-brand:hover, .nav-link:hover {
     color: #71d7ff !important;
 }
 
@@ -133,25 +147,27 @@ footer {
     justify-content: center;
     align-items: center;
 }
-.scrollToTop{
-    width:100px; 
-    height:130px;
-    padding:10px; 
-    text-align:center; 
+
+.scrollToTopBtn {
+    width: 100px;
+    height: 130px;
+    padding: 10px;
+    text-align: center;
     font-weight: bold;
     color: #1c486d;
     text-decoration: none;
-    position:fixed;
-    bottom:5px;
-    right:40px;
-    display:none;
-
+    position: fixed;
+    bottom: 5px;
+    right: 40px;
+    display: none;
 }
-.fa-arrow-up{
-    width:100px; 
-    height:130px;
+
+.fa-arrow-up {
+    width: 100px;
+    height: 130px;
     font-size: 45px;
 }
-.scrollToTop:hover{
+
+.scrollToTop:hover {
     color: #9d392a;
 }

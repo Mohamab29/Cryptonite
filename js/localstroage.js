@@ -49,7 +49,7 @@ function removeExpired(data) {
         }
     }
 }
-function addForReports(id, isChecked) {
+function addForReports(id, isChecked, symbol) {
     // adding and array of objects in local storage the new currency or updating 
     // a currency for the live reports
     let updatedObject = [];
@@ -60,7 +60,8 @@ function addForReports(id, isChecked) {
 
     updatedObject.push({
         id: id,
-        isChecked: isChecked
+        isChecked: isChecked,
+        symbol: symbol.toUpperCase()
     });
     localStorage.setItem("reports", JSON.stringify(updatedObject));
 }
