@@ -18,7 +18,7 @@ function buildAboutSection() {
                     <p>
                         I am a 24-year-old software Engineer from Baqa al-Gharbiyye, 
                         finished my B.Sc. in Sami Shamoon College of Engineering.<br>
-                        Currently learning full-stack development and have a 2-year experience in the field of Machine Learning and python. 
+                        Currently learning full-stack development and have a 2-years experience in the field of Machine Learning and python. 
                     </p>
                     <p>
                         <h2>Things I love to do 💁🏻‍♂️:</h2>
