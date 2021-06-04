@@ -49,9 +49,9 @@ $(function () {
         const linksIDs = ["#currenciesLink", "#liveReportsLink", "#aboutLink"];
         const componentIndex = linksIDs.indexOf(comLink);
         linksIDs.splice(componentIndex, 1)
-         // taking each link and checking if contains the active class if yes then remove it
+        // taking each link and checking if contains the active class if yes then remove it
         linksIDs.map((element) => {
-            if($(element).hasClass('nav-link-active')){
+            if ($(element).hasClass('nav-link-active')) {
                 $(element).removeClass('nav-link-active');
             }
         });
@@ -112,11 +112,16 @@ $(function () {
                     }
                 }
             })();
+
         });
 
         $("div.cards").on('click', 'input.card-checkbox', function () {
             addCheckedCurrency($(this));
         });
+        
+        $('#search-btn').popover({
+            trigger: 'hover'
+        })
     });
 
     // #################################
@@ -154,14 +159,14 @@ $(function () {
 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     // when the about link is clicked 
-    $("#aboutLink").on('click',function(){
+    $("#aboutLink").on('click', function () {
         // building the about section 
         buildAboutSection();
         // changing color of the links
         changeLinksColor("#aboutLink");
         // changing the bg height
         changeBgHeight(95);
-        
+
         scrollDown("#aboutComponent");
     });
     //when scrolling we wan to change the offset of the navbar

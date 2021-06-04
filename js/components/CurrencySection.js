@@ -121,7 +121,9 @@ async function showCurrency(id) {
     try {
         // first get the currency info by it's id then we build an html element to show it 
         // after we finish we save it to local storage
-        const data = await getCurrentPrice(id)
+        const url = `https://api.coingecko.com/api/v3/coins/${id}`;
+
+        const data = await getData(url);
         const infoObject = {
             id: id,
             image: data.image.thumb,
@@ -161,7 +163,8 @@ function createCard(crypto) {
 }
 async function displayTop100() {
     try {
-        const data = await getTop100Data();
+        const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc";
+        const data = await getData(url);
         removeExpired(data);
         if (getFromLocalStorage("reports")) {
             localStorage.removeItem("reports");
@@ -183,7 +186,7 @@ async function displayTop100() {
 function buildCurrencySection() {
     //first we create the div that contains the search input and button 
     // and also the div that contains the cards
-    
+
     $(".sections").empty();
 
     const currencyComponent = `
@@ -194,7 +197,7 @@ function buildCurrencySection() {
                 <input class="form-control" id="search-input" type="search" placeholder="Search"
                     aria-label="Search">
             </div>
-            <button id="search-btn" type="button" class="btn btn-info">
+            <button id="search-btn" type="button" role="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Search option" data-content="You can search by currency symbol, example: ETH, BTC ...">
                 <div class="spinner-border " id="search-spinner" role="status">
                 </div>
                 <i class="fas fa-search"></i>

@@ -90,7 +90,7 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) , 
 $ git clone https://github.com/Mohamab29/Cryptonite
 
 # Access
-$ cd task-board
+$ cd Cryptonite
 
 $ code .
 
@@ -98,6 +98,7 @@ $ code .
 
 After opening the folder in VS Code , right click on the index.html folder and then click on open with live server after that your default browser will pop-up with the website being fully live locally on your machine.
 
+or check out the website [Cryptonite](https://mohamab29.github.io/Cryptonite/).🤗
 ## :memo: License ##
 
 This project is under license from Apache 2.0.

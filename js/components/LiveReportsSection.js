@@ -65,7 +65,9 @@ async function updateCanvas(startTime) {
     }
     chart.options.title.text = canvasTitle + " to USD\\$";
     try {
-        const currenciesInUSD = await getCurrencies(canvasTitle);
+
+        const url = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${canvasTitle}&tsyms=USD&api_key={8811c233b7434d817aa5e4ca605cdea029b7db3b9ba10aef765556f3dc6bc8f1}`;
+        const currenciesInUSD = await getData(url);
 
         if (chartData.length) {
             chartData = updateChartData(chartData, checkedCurrenciesNames);
