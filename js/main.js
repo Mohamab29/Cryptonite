@@ -70,6 +70,15 @@ $(function () {
     const changeBgHeight = (height) => {
         $(".bg-area").animate({ height: `${height}vh` }, 500);
     };
+    // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    // when the navbar brand link is clicked we clean all the sections and show the bg 
+    $(".navbar-brand").on('click', function () {
+        // building the about section 
+        $(".sections").empty();
+        // changing the bg height
+        changeBgHeight(86);
+        changeLinksColor("");
+    });
 
     // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     // if the currencies link is clicked when we show all the relevant components
@@ -169,6 +178,7 @@ $(function () {
 
         scrollDown("#aboutComponent");
     });
+
     //when scrolling we wan to change the offset of the navbar
     $(window).on('scroll', () => {
         let offset = window.pageYOffset;
