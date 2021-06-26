@@ -75,10 +75,6 @@ In this project we are exercised:
 🔹 External API’s.
 
 
-- [HTML](https://html.com/)
-- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/)
-- [JavaScript](https://www.javascript.com/)
-
 ## :white_check_mark: Requirements ##
 
 Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) , [VS Code](https://code.visualstudio.com/) installed and [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
